@@ -6,11 +6,7 @@
   background: #000;
 }
 
-.slides {
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
+.slides { width: 100%; height: 100%; position: relative; }
 
 .slide {
   position: absolute;
@@ -18,32 +14,20 @@
   opacity: 0;
   transition: opacity 2s cubic-bezier(0.4, 0, 0.2, 1);
 }
+.slide.active { opacity: 1; z-index: 1; }
 
-.slide.active {
-  opacity: 1;
-  z-index: 1;
-}
-
-.slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.slide.active img {
-  animation: kenBurns 8s ease-in-out forwards;
-}
+.media { width: 100%; height: 100%; object-fit: cover; display: block; }
+.kenBurns { animation: kenBurns 12s ease-in-out forwards; }
 
 .slide::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, transparent 30%, transparent 60%, rgba(0,0,0,0.55) 100%);
+  background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, transparent 25%, transparent 65%, rgba(0,0,0,0.5) 100%);
   z-index: 1;
 }
 
-/* Nav buttons */
+/* Nav */
 .nav {
   position: absolute;
   top: 50%;
@@ -62,7 +46,6 @@
   justify-content: center;
   transition: background 0.2s, transform 0.2s;
 }
-
 .nav svg { width: 22px; height: 22px; }
 .nav:hover { background: rgba(255,255,255,0.15); transform: translateY(-50%) scale(1.08); }
 .prev { left: 28px; }
@@ -71,7 +54,7 @@
 /* Dots */
 .dots {
   position: absolute;
-  bottom: 36px;
+  bottom: 28px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
@@ -79,7 +62,6 @@
   gap: 8px;
   align-items: center;
 }
-
 .dot {
   width: 8px;
   height: 8px;
@@ -90,64 +72,89 @@
   transition: width 0.3s, background 0.3s;
   padding: 0;
 }
+.dotActive { width: 28px; border-radius: 4px; background: white; }
 
-.dotActive {
-  width: 28px;
-  border-radius: 4px;
-  background: white;
-}
-
-/* Counter */
-.counter {
+/* Top groups */
+.topLeft {
   position: absolute;
-  top: 24px;
-  right: 28px;
-  z-index: 10;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: rgba(255,255,255,0.7);
-  background: rgba(0,0,0,0.3);
-  backdrop-filter: blur(8px);
-  padding: 6px 14px;
-  border-radius: 20px;
-  letter-spacing: 0.05em;
-}
-
-/* Back */
-.back {
-  position: absolute;
-  top: 24px;
-  left: 28px;
+  top: 20px;
+  left: 20px;
   z-index: 10;
   display: flex;
+  gap: 8px;
+}
+.topRight {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 10;
+  display: flex;
+  gap: 8px;
   align-items: center;
-  gap: 7px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: rgba(255,255,255,0.75);
-  background: rgba(0,0,0,0.3);
-  backdrop-filter: blur(8px);
-  padding: 8px 16px;
-  border-radius: 20px;
-  border: none;
-  cursor: pointer;
-  transition: color 0.2s, background 0.2s;
 }
 
-.back svg { width: 16px; height: 16px; }
-.back:hover { color: white; background: rgba(0,0,0,0.5); }
+.pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.8);
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(10px);
+  padding: 7px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.12);
+  cursor: pointer;
+  transition: color 0.2s, background 0.2s;
+  white-space: nowrap;
+  user-select: none;
+}
+.pill svg { width: 15px; height: 15px; flex-shrink: 0; }
+.pill:hover { color: white; background: rgba(0,0,0,0.55); }
 
-/* Progress bar */
+.counter {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.75);
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(10px);
+  padding: 7px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.12);
+  letter-spacing: 0.04em;
+}
+
+.deleteBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: rgba(255,100,100,0.85);
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(10px);
+  padding: 7px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,100,100,0.2);
+  cursor: pointer;
+  transition: color 0.2s, background 0.2s;
+  white-space: nowrap;
+}
+.deleteBtn svg { width: 15px; height: 15px; flex-shrink: 0; }
+.deleteBtn:hover { color: #ff6b6b; background: rgba(180,30,30,0.3); }
+.deleteBtnConfirm { color: #ff4444; background: rgba(200,20,20,0.35); border-color: rgba(255,80,80,0.5); }
+
+/* Progress */
 .progressBar {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
   height: 3px;
-  background: rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.12);
   z-index: 10;
 }
-
 .progressFill {
   height: 100%;
   background: linear-gradient(90deg, #6366f1, #8b5cf6);
@@ -160,11 +167,11 @@
   to   { transform: scale(1.06); }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 520px) {
   .nav { width: 44px; height: 44px; }
-  .prev { left: 14px; }
-  .next { right: 14px; }
-  .back, .counter { top: 16px; }
-  .back { left: 16px; }
-  .counter { right: 16px; }
+  .prev { left: 10px; }
+  .next { right: 10px; }
+  .topLeft, .topRight { top: 14px; }
+  .topLeft { left: 10px; }
+  .topRight { right: 10px; }
 }

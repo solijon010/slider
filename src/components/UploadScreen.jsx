@@ -1,10 +1,34 @@
 import { useRef } from 'react'
 import styles from './UploadScreen.module.css'
 
-export default function UploadScreen({ images, onFiles, onRemove, onStart }) {
+function MediaThumb({ item, onRemove }) {
+  const isVideo = item.type?.startsWith('video/')
+  return (
+    <div className={styles.thumb}>
+      {isVideo ? (
+        <div className={styles.videoThumb}>
+          <video src={item.url} preload="metadata" muted playsInline />
+          <div className={styles.playIcon}>
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </div>
+        </div>
+      ) : (
+        <img src={item.url} alt={item.name} />
+      )}
+      <button className={styles.remove} onClick={() => onRemove(item.id)}>×</button>
+    </div>
+  )
+}
+
+export default function UploadScreen({ media, onFiles, onRemove, onStart }) {
   const inputRef = useRef(null)
 
-  const handleChange = (e) => onFiles(e.target.files)
+  const handleChange = (e) => {
+    onFiles(e.target.files)
+    e.target.value = ''
+  }
 
   const handleDrop = (e) => {
     e.preventDefault()
@@ -25,35 +49,32 @@ export default function UploadScreen({ images, onFiles, onRemove, onStart }) {
           </svg>
         </div>
 
-        <h1>Rasm Yuklash</h1>
-        <p>Rasmlarni tanlang yoki bu yerga tashlang</p>
+        <h1>Media Yuklash</h1>
+        <p>Rasm yoki video tanlang / bu yerga tashlang</p>
 
         <label className={styles.uploadBtn}>
-          + Rasm Tanlash
+          + Fayl Tanlash
           <input
             ref={inputRef}
             type="file"
-            accept="image/*"
+            accept="image/*,video/*"
             multiple
             hidden
             onChange={handleChange}
           />
         </label>
 
-        {images.length > 0 && (
+        {media.length > 0 && (
           <div className={styles.previews}>
-            {images.map(img => (
-              <div key={img.id} className={styles.thumb}>
-                <img src={img.url} alt={img.name} />
-                <button className={styles.remove} onClick={() => onRemove(img.id)}>×</button>
-              </div>
+            {media.map(item => (
+              <MediaThumb key={item.id} item={item} onRemove={onRemove} />
             ))}
           </div>
         )}
 
         <button
           className={styles.startBtn}
-          disabled={images.length === 0}
+          disabled={media.length === 0}
           onClick={onStart}
         >
           Karuselni Boshlash

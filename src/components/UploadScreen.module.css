@@ -30,23 +30,10 @@
   align-items: center;
   justify-content: center;
 }
+.icon svg { width: 36px; height: 36px; stroke: white; }
 
-.icon svg {
-  width: 36px;
-  height: 36px;
-  stroke: white;
-}
-
-.card h1 {
-  font-size: 1.6rem;
-  font-weight: 700;
-}
-
-.card p {
-  color: #a1a1aa;
-  font-size: 0.9rem;
-  margin-top: -6px;
-}
+.card h1 { font-size: 1.6rem; font-weight: 700; }
+.card p { color: #a1a1aa; font-size: 0.9rem; margin-top: -6px; text-align: center; }
 
 .uploadBtn {
   padding: 12px 28px;
@@ -58,37 +45,45 @@
   cursor: pointer;
   transition: background 0.2s, transform 0.15s;
   margin-top: 8px;
+  user-select: none;
 }
-
-.uploadBtn:hover {
-  background: #4f46e5;
-  transform: translateY(-1px);
-}
+.uploadBtn:hover { background: #4f46e5; transform: translateY(-1px); }
 
 .previews {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   justify-content: center;
-  max-height: 160px;
+  max-height: 180px;
   overflow-y: auto;
   width: 100%;
+  padding: 4px;
 }
+.previews::-webkit-scrollbar { width: 4px; }
+.previews::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
 
 .thumb {
   position: relative;
-  width: 72px;
-  height: 72px;
+  width: 76px;
+  height: 76px;
   border-radius: 10px;
   overflow: hidden;
   border: 2px solid rgba(255,255,255,0.1);
+  flex-shrink: 0;
 }
+.thumb img { width: 100%; height: 100%; object-fit: cover; }
 
-.thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.videoThumb { width: 100%; height: 100%; position: relative; background: #1a1a2e; }
+.videoThumb video { width: 100%; height: 100%; object-fit: cover; }
+.playIcon {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.4);
 }
+.playIcon svg { width: 24px; height: 24px; color: white; }
 
 .remove {
   position: absolute;
@@ -96,7 +91,7 @@
   right: 3px;
   width: 20px;
   height: 20px;
-  background: rgba(0,0,0,0.7);
+  background: rgba(0,0,0,0.75);
   border: none;
   border-radius: 50%;
   color: white;
@@ -107,8 +102,8 @@
   justify-content: center;
   opacity: 0;
   transition: opacity 0.2s;
+  z-index: 2;
 }
-
 .thumb:hover .remove { opacity: 1; }
 
 .startBtn {
@@ -126,16 +121,6 @@
   box-shadow: 0 8px 24px rgba(99,102,241,0.35);
   transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
 }
-
 .startBtn svg { width: 18px; height: 18px; }
-
-.startBtn:disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
-  box-shadow: none;
-}
-
-.startBtn:not(:disabled):hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 32px rgba(99,102,241,0.5);
-}
+.startBtn:disabled { opacity: 0.3; cursor: not-allowed; box-shadow: none; }
+.startBtn:not(:disabled):hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(99,102,241,0.5); }
